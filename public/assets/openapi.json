@@ -1,0 +1,110 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Kiracloud API",
+    "version": "v2.0",
+    "description": "Simple and powerful REST API — downloaders, search tools, and system utilities."
+  },
+  "servers": [{ "url": "/" }],
+  "tags": [
+    { "name": "Downloader" },
+    { "name": "Search" },
+    { "name": "System" }
+  ],
+  "paths": {
+    "/api/downloader/tiktok": {
+      "get": {
+        "summary": "TikTok Downloader",
+        "description": "Download watermark-free videos and MP3 audio from any TikTok URL.",
+        "tags": ["Downloader"],
+        "parameters": [
+          { "name": "url", "in": "query", "required": true, "schema": { "type": "string", "example": "https://www.tiktok.com/@user/video/123456789" } }
+        ],
+        "responses": {
+          "200": { "description": "Download links returned successfully." },
+          "500": { "description": "Internal server error." }
+        }
+      }
+    },
+    "/api/downloader/instagram": {
+      "get": {
+        "summary": "Instagram Downloader",
+        "description": "Download Instagram media (Photos, Videos, Reels, IGTV & Albums) in original HD resolution.",
+        "tags": ["Downloader"],
+        "parameters": [
+          { "name": "url", "in": "query", "required": true, "schema": { "type": "string", "example": "https://www.instagram.com/p/CXYZ1234/" } }
+        ],
+        "responses": {
+          "200": { "description": "Media links returned successfully." },
+          "500": { "description": "Internal server error." }
+        }
+      }
+    },
+    "/api/downloader/youtube": {
+      "get": {
+        "summary": "YouTube Downloader",
+        "description": "Download high-quality MP4 video and 320kbps MP3 audio from any YouTube URL.",
+        "tags": ["Downloader"],
+        "parameters": [
+          { "name": "url", "in": "query", "required": true, "schema": { "type": "string", "example": "https://youtu.be/PPKHWvVAN9U" } },
+          { "name": "resolusi", "in": "query", "required": false, "schema": { "type": "string", "example": "max", "default": "max" } }
+        ],
+        "responses": {
+          "200": { "description": "Video and audio download links returned." },
+          "500": { "description": "Internal server error." }
+        }
+      }
+    },
+    "/api/downloader/spotify": {
+      "get": {
+        "summary": "Spotify Downloader",
+        "description": "Download high-quality audio and HD cover art from any Spotify track URL.",
+        "tags": ["Downloader"],
+        "parameters": [
+          { "name": "url", "in": "query", "required": true, "schema": { "type": "string", "example": "https://open.spotify.com/track/4C3TNDpxyXA2FxpEvp1pqt" } }
+        ],
+        "responses": {
+          "200": { "description": "Audio download link returned." },
+          "500": { "description": "Internal server error." }
+        }
+      }
+    },
+    "/api/search/lyrics": {
+      "get": {
+        "summary": "Lyrics Search",
+        "description": "Fetch plain and synced (LRC) lyrics for any song, including album art from iTunes.",
+        "tags": ["Search"],
+        "parameters": [
+          { "name": "q", "in": "query", "required": true, "schema": { "type": "string", "example": "A Couple Minutes Olivia Dean" } }
+        ],
+        "responses": {
+          "200": { "description": "Lyrics data returned." },
+          "404": { "description": "Lyrics not found." },
+          "500": { "description": "Internal server error." }
+        }
+      }
+    },
+    "/api/info": {
+      "get": {
+        "summary": "API Status",
+        "description": "Check API status, uptime, and usage statistics.",
+        "tags": ["System"],
+        "responses": {
+          "200": { "description": "Status returned successfully." },
+          "500": { "description": "Internal server error." }
+        }
+      }
+    },
+    "/api/system": {
+      "get": {
+        "summary": "System Info",
+        "description": "Retrieve server information: OS, CPU, memory, and Node.js version.",
+        "tags": ["System"],
+        "responses": {
+          "200": { "description": "System info returned." },
+          "500": { "description": "Internal server error." }
+        }
+      }
+    }
+  }
+}

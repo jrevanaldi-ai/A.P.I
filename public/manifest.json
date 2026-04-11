@@ -1,0 +1,32 @@
+{
+  "name": "Kiracloud API",
+  "short_name": "Kiracloud",
+  "description": "Powerful REST API with YouTub, Spotify, TikTok, Instagram downloaders and lyrics search",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#00bc96",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' fill='%2300bc96' rx='40'/%3E%3Ctext x='96' y='152' font-size='140' font-weight='700' fill='%23ffffff' text-anchor='middle' font-family='Courier%20New%2C%20Monaco%2C%20monospace' letter-spacing='-3'%3EK%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Ctext x='96' y='152' font-size='140' font-weight='700' fill='%2300bc96' text-anchor='middle' font-family='Courier%20New%2C%20Monaco%2C%20monospace' letter-spacing='-3'%3EK%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://kiracloud-api.vercel.app/api/og",
+      "sizes": "1280x640",
+      "type": "image/png"
+    }
+  ]
+}
