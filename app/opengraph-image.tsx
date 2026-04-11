@@ -16,78 +16,52 @@ export default async function Image() {
           display: 'flex',
           width: '1280px',
           height: '640px',
-          background: 'linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%)',
+          backgroundColor: '#0a0e27',
           flexDirection: 'column',
           justifyContent: 'space-between',
           padding: '60px',
-          fontFamily: '"Space Mono", monospace',
-          color: '#fff',
+          fontFamily: 'sans-serif',
+          color: '#ffffff',
           position: 'relative',
-          overflow: 'hidden',
         }}
       >
-        {/* Animated background elements */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '-10%',
-            right: '-10%',
-            width: '400px',
-            height: '400px',
-            background: 'radial-gradient(circle, rgba(0, 188, 150, 0.15) 0%, transparent 70%)',
-            borderRadius: '50%',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '-15%',
-            left: '-5%',
-            width: '350px',
-            height: '350px',
-            background: 'radial-gradient(circle, rgba(0, 188, 150, 0.1) 0%, transparent 70%)',
-            borderRadius: '50%',
-          }}
-        />
-
         {/* Main content */}
         <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column' }}>
           {/* Logo + Brand */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '40px' }}>
-            {/* White K with API Reference style */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '40px' }}>
             <svg
-              width="60"
-              height="60"
+              width="80"
+              height="80"
               viewBox="0 0 100 100"
               style={{ flexShrink: 0 }}
             >
+              <rect width="100" height="100" rx="20" fill="#00bc96" />
               <text
                 x="50"
-                y="72"
-                fontSize="80"
-                fontWeight="700"
+                y="75"
+                fontSize="70"
+                fontWeight="bold"
                 fill="#ffffff"
                 textAnchor="middle"
-                fontFamily="'Courier New', 'Monaco', monospace"
-                letterSpacing="-3"
+                fontFamily="sans-serif"
               >
                 K
               </text>
             </svg>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <div
                 style={{
-                  fontSize: '32px',
-                  fontWeight: '700',
-                  letterSpacing: '-0.5px',
+                  fontSize: '48px',
+                  fontWeight: 'bold',
                   display: 'flex',
+                  alignItems: 'center',
                 }}
               >
                 <span>Kiracloud</span>
-                <span style={{ color: '#00bc96' }}>.</span>
+                <span style={{ color: '#00bc96', marginLeft: '4px', marginRight: '8px' }}>.</span>
                 <span>API</span>
               </div>
-              <div style={{ fontSize: '14px', color: '#a0a9c9', marginTop: '4px' }}>
+              <div style={{ fontSize: '24px', color: '#a0a9c9', marginTop: '4px' }}>
                 API Documentation & Tools
               </div>
             </div>
@@ -96,13 +70,12 @@ export default async function Image() {
           {/* Headline */}
           <div
             style={{
-              fontSize: '64px',
+              fontSize: '76px',
               fontWeight: '900',
-              lineHeight: '1.2',
-              marginBottom: '20px',
-              background: 'linear-gradient(120deg, #fff 0%, #a0a9c9 100%)',
-              backgroundClip: 'text',
-              color: 'transparent',
+              lineHeight: '1.1',
+              marginBottom: '24px',
+              color: '#ffffff',
+              letterSpacing: '-1px',
             }}
           >
             Powerful REST API
@@ -111,10 +84,10 @@ export default async function Image() {
           {/* Description */}
           <div
             style={{
-              fontSize: '20px',
+              fontSize: '32px',
               color: '#a0a9c9',
-              lineHeight: '1.6',
-              maxWidth: '600px',
+              lineHeight: '1.5',
+              maxWidth: '800px',
             }}
           >
             Downloaders, search tools, and system utilities in one place. Simple to integrate,
@@ -128,17 +101,16 @@ export default async function Image() {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            position: 'relative',
-            zIndex: 10,
-            paddingTop: '20px',
-            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+            paddingTop: '30px',
+            borderTop: '2px solid rgba(255, 255, 255, 0.1)',
+            width: '100%',
           }}
         >
           <div
             style={{
               display: 'flex',
-              gap: '24px',
-              fontSize: '14px',
+              gap: '32px',
+              fontSize: '22px',
               color: '#a0a9c9',
             }}
           >
@@ -147,9 +119,10 @@ export default async function Image() {
           </div>
           <div
             style={{
-              fontSize: '14px',
-              color: '#a0a9c9',
-              letterSpacing: '0.1em',
+              fontSize: '24px',
+              color: '#00bc96',
+              fontWeight: 'bold',
+              letterSpacing: '1px',
             }}
           >
             api.kiracloud.me
