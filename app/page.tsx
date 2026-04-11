@@ -1,29 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
-
-interface OpenApiData {
-  tags?: { name: string }[];
-  paths?: Record<string, Record<string, unknown>>;
-}
+import { endpoints, tags } from "@/config/endpoints";
 
 export default function Home() {
-  const [totalEndpoints, setTotalEndpoints] = useState<string | number>("—");
-  const [totalCategories, setTotalCategories] = useState<string | number>("—");
-
-  useEffect(() => {
-    fetch("/assets/openapi.json")
-      .then((r) => r.json())
-      .then((data: OpenApiData) => {
-        const cats = data.tags?.length ?? 0;
-        let eps = 0;
-        Object.values(data.paths ?? {}).forEach((p) => { eps += Object.keys(p).length; });
-        setTotalEndpoints(eps);
-        setTotalCategories(cats);
-      })
-      .catch(() => { setTotalEndpoints("N/A"); setTotalCategories("N/A"); });
-  }, []);
+  const totalEndpoints = endpoints.length;
+  const totalCategories = tags.length;
 
   return (
     <main style={{ maxWidth: 860, margin: "0 auto", padding: "40px 24px", position: "relative" }}>
