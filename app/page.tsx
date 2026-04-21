@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { endpoints, tags } from "@/config/endpoints";
 
+export const dynamic = "force-dynamic";
+
 interface SystemStats {
   status: string;
   memory: {
@@ -45,15 +47,15 @@ export default function Home() {
       })
       .catch(() => setLoading(false));
 
-    // Fetch User IP & Location
-    fetch("https://ipapi.co/json/")
+    // Fetch User IP & Location from our own API
+    fetch("/api/user")
       .then(res => res.json())
       .then(data => setUserSession(prev => ({ 
         ...prev, 
         ip: data.ip,
-        location: `${data.city}, ${data.country_name}` 
+        location: data.location 
       })))
-      .catch(() => setUserSession(prev => ({ ...prev, ip: "Unknown", location: "Unknown" })));
+      .catch(() => setUserSession(prev => ({ ...prev, ip: "Error", location: "Error" })));
 
     // Fetch Battery Info
     if ("getBattery" in navigator) {
@@ -75,7 +77,6 @@ export default function Home() {
 
   return (
     <main style={{ maxWidth: 860, margin: "0 auto", padding: "40px 24px", position: "relative" }}>
-      {/* ... Hero section code (tetap sama) ... */}
 
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <div style={{ 
