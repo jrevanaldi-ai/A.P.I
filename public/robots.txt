@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kiracloud-api.vercel.app/sitemap.xml
+Sitemap: https://lune-api.vercel.app/sitemap.xml
 
 # Disallow admin and private paths
 Disallow: /api/

@@ -1,4 +1,4 @@
-export function KiracloudLogo({ size = 32 }: { size?: number }) {
+export function LuneLogo({ size = 32 }: { size?: number }) {
   return (
     <svg
       width={size}
@@ -7,7 +7,7 @@ export function KiracloudLogo({ size = 32 }: { size?: number }) {
       xmlns="http://www.w3.org/2000/svg"
       className="flex-shrink-0"
     >
-      {/* White K with modern API Reference style font */}
+      {/* White L with modern API Reference style font */}
       <text
         x="50"
         y="72"
@@ -18,21 +18,21 @@ export function KiracloudLogo({ size = 32 }: { size?: number }) {
         fontFamily="'Courier New', 'Monaco', monospace"
         letterSpacing="-3"
       >
-        K
+        L
       </text>
     </svg>
   );
 }
 
-export function KiracloudWordmark() {
+export function LuneWordmark() {
   return (
     <div className="flex items-center gap-2">
       <div className="text-white">
-        <KiracloudLogo size={40} />
+        <LuneLogo size={40} />
       </div>
       <div>
         <div className="text-xl font-bold tracking-tight">
-          Kiracloud<span className="text-[#00bc96]">.</span>API
+          Lune<span className="text-[#00bc96]">.</span>Api
         </div>
         <div className="text-xs text-gray-500 dark:text-gray-400">REST API Platform</div>
       </div>

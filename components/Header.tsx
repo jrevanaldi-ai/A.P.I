@@ -43,20 +43,13 @@ export function Header() {
         <div className="header-inner">
           {/* ── Brand ── */}
           <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 14 }}>
-            {/* Terminal dots */}
-            <div style={{ display: "flex", gap: 5 }}>
-              {["#ff5f56", "#ffbd2e", "#27c93f"].map((c) => (
-                <span key={c} style={{ width: 9, height: 9, borderRadius: "50%", background: c, display: "block", border: "1px solid rgba(0,0,0,0.12)", flexShrink: 0 }} />
-              ))}
-            </div>
-
             <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-              <span style={{ fontFamily: "var(--font-mono)", fontWeight: 700, fontSize: 14, color: "var(--text)", letterSpacing: "-0.02em", lineHeight: 1 }}>
-                Kiracloud<span style={{ color: "var(--teal)" }}>.</span>API
+              <span style={{ fontFamily: "var(--font-mono)", fontWeight: 800, fontSize: 18, color: "var(--text)", letterSpacing: "-0.04em", lineHeight: 1 }}>
+                Lune<span style={{ color: "var(--text-muted)" }}>.</span>Api
               </span>
             </div>
 
-            <span style={{ fontFamily: "var(--font-mono)", fontWeight: 700, fontSize: 10, letterSpacing: "0.1em", padding: "3px 9px", border: "var(--border)", borderRadius: 6, background: "var(--text)", color: "var(--surface)", flexShrink: 0 }}>
+            <span style={{ fontFamily: "var(--font-mono)", fontWeight: 700, fontSize: 10, letterSpacing: "0.1em", padding: "4px 10px", border: "var(--border)", borderRadius: 8, background: "var(--accent)", color: "var(--accent-text)", flexShrink: 0 }}>
               v2.0
             </span>
           </Link>

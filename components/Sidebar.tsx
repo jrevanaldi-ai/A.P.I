@@ -55,7 +55,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             {["#ff5f56", "#ffbd2e", "#27c93f"].map((c) => (
               <span key={c} style={{ width: 8, height: 8, borderRadius: "50%", background: c, display: "block" }} />
             ))}
-            <span style={{ marginLeft: 6, fontSize: 10, color: "var(--text-faint)", letterSpacing: "0.06em" }}>kiracloud — nav</span>
+            <span style={{ marginLeft: 6, fontSize: 10, color: "var(--text-faint)", letterSpacing: "0.06em" }}>lune — nav</span>
           </div>
           <button onClick={onClose} className="theme-toggle" style={{ width: 32, height: 32 }} aria-label="Close">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -103,7 +103,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
         {/* Footer */}
         <div style={{ padding: "14px 20px", borderTop: "1px solid var(--divider)" }}>
-          <p style={{ fontSize: 10, color: "var(--text-faint)", letterSpacing: "0.04em" }}>© 2026 Kiracloud API</p>
+          <p style={{ fontSize: 10, color: "var(--text-faint)", letterSpacing: "0.04em" }}>© 2026 Lune Api</p>
         </div>
       </aside>
     </>

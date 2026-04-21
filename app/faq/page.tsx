@@ -9,9 +9,9 @@ interface FAQItem {
 
 const faqs: FAQItem[] = [
   {
-    question: 'What is Kiracloud API?',
+    question: 'What is Lune Api?',
     answer:
-      'Kiracloud API is a free, open-source REST API that provides multiple services including media downloaders (YouTube, Spotify, TikTok, Instagram), search tools (lyrics search), and system utilities. All endpoints return JSON responses and are easy to integrate.',
+      'Lune Api is a free, open-source REST API that provides multiple services including media downloaders (YouTube, Spotify, TikTok, Instagram), search tools (lyrics search), and system utilities. All endpoints return JSON responses and are easy to integrate.',
   },
   {
     question: 'Do I need an API key to use these endpoints?',
@@ -44,7 +44,7 @@ const faqs: FAQItem[] = [
       'Please visit our GitHub repository to open an issue or start a discussion. You can also reach out via email if you find a security vulnerability. We review all feedback and appreciate contributions from the community.',
   },
   {
-    question: 'Can I self-host Kiracloud API?',
+    question: 'Can I self-host Lune Api?',
     answer:
       'Yes! The source code is available on GitHub. You can clone the repository, install dependencies, and run your own instance. Instructions are included in the README file.',
   },
@@ -100,7 +100,7 @@ export default function FAQ() {
           FAQ
         </h1>
         <p style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--text-muted)', margin: 0 }}>
-          Frequently asked questions about Kiracloud API
+          Frequently asked questions about Lune Api
         </p>
       </div>
 
@@ -200,16 +200,17 @@ export default function FAQ() {
       <div
         style={{
           marginTop: 48,
-          padding: '20px',
-          borderRadius: 12,
-          background: 'rgba(0, 188, 150, 0.08)',
-          border: '2.5px solid var(--teal)',
+          padding: '24px',
+          borderRadius: 'var(--radius)',
+          background: 'var(--surface)',
+          border: 'var(--border)',
+          boxShadow: 'var(--shadow)',
           textAlign: 'center',
         }}
       >
-        <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-muted)', margin: 0 }}>
+        <p style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--text-muted)', margin: 0, fontWeight: 700 }}>
           Didn&apos;t find what you&apos;re looking for?{' '}
-          <span style={{ color: 'var(--text)' }}>Check the documentation or open an issue on GitHub.</span>
+          <span style={{ color: 'var(--text)', textDecoration: 'underline', cursor: 'pointer' }}>Check the documentation or open an issue on GitHub.</span>
         </p>
       </div>
     </main>

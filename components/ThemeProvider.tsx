@@ -19,7 +19,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem("kiracloud-theme") as Theme | null;
+    const stored = localStorage.getItem("lune-theme") as Theme | null;
     const preferred = stored || "dark";
     setTheme(preferred);
     setMounted(true);
@@ -35,7 +35,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     } else {
       root.classList.remove("dark");
     }
-    localStorage.setItem("kiracloud-theme", theme);
+    localStorage.setItem("lune-theme", theme);
   }, [theme, mounted]);
 
   const toggleTheme = () => {

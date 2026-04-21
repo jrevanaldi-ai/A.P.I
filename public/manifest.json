@@ -1,7 +1,7 @@
 {
-  "name": "Kiracloud API",
-  "short_name": "Kiracloud",
-  "description": "Powerful REST API with YouTub, Spotify, TikTok, Instagram downloaders and lyrics search",
+  "name": "Lune Api",
+  "short_name": "Lune Api",
+  "description": "Powerful REST API with YouTube, Spotify, TikTok, Instagram downloaders and lyrics search",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

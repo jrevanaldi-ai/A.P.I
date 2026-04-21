@@ -7,9 +7,9 @@ export async function GET() {
 
   return NextResponse.json({
     status: "ok",
-    name: "Kiracloud API",
+    name: "Lune Api",
     version: "v2.0",
-    author: "Kiracloud",
+    author: "LuneDev",
     description: "Simple and powerful tools API, easy to use.",
     uptime: `${uptime}s`,
     timestamp: new Date().toISOString(),

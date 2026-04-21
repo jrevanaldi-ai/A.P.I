@@ -36,7 +36,7 @@ export default function NotFound() {
           {["#ff5f56","#ffbd2e","#27c93f"].map((c) => (
             <span key={c} style={{ width: 9, height: 9, borderRadius: "50%", background: c, display: "block" }} />
           ))}
-          <span style={{ marginLeft: 6, fontSize: 10, color: "var(--text-faint)", letterSpacing: "0.06em" }}>kiracloud — error</span>
+          <span style={{ marginLeft: 6, fontSize: 10, color: "var(--text-faint)", letterSpacing: "0.06em" }}>lune — error</span>
         </div>
         <h1 style={{ fontSize: 15, fontWeight: 700, letterSpacing: "0.06em", color: "var(--text)", marginBottom: 8, textTransform: "uppercase" }}>
           Page Not Found

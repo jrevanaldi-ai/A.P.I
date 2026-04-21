@@ -5,9 +5,9 @@ import { endpoints, tags, type Tag, type EndpointConfig, getApiPath } from "@/co
 
 /* ─── Tag color map ────────────────────────────────────────────────────── */
 const tagColors: Record<string, string> = {
-  Downloader: "var(--teal)",
-  Search:     "var(--yellow)",
-  System:     "var(--green)",
+  Downloader: "var(--text)",
+  Search:     "var(--text-muted)",
+  System:     "var(--text-faint)",
 };
 
 /* ─── Copy button ──────────────────────────────────────────────────────── */
@@ -48,13 +48,13 @@ function ResponsePanel({ data, ms }: { data: unknown; ms: number }) {
       </div>
       <div className="terminal">
         <div className="terminal-bar">
-          {["#ff5f56", "#ffbd2e", "#27c93f"].map((c) => (
-            <span key={c} className="terminal-dot" style={{ background: c }} />
+          {["#333", "#333", "#333"].map((c, i) => (
+            <span key={i} className="terminal-dot" style={{ background: "transparent", border: "1.5px solid var(--border-color)" }} />
           ))}
-          <span style={{ marginLeft: 6, fontSize: 10, color: "var(--text-faint)", letterSpacing: "0.06em" }}>response — JSON</span>
+          <span style={{ marginLeft: 6, fontSize: 10, color: "var(--text-faint)", letterSpacing: "0.06em", fontWeight: 700 }}>response — JSON</span>
         </div>
-        <pre className="terminal-body" style={{ fontSize: 12 }}>
-          <code style={{ color: "#4ade80" }}>{json}</code>
+        <pre className="terminal-body" style={{ fontSize: 12, background: "#000" }}>
+          <code style={{ color: "#fff" }}>{json}</code>
         </pre>
       </div>
     </div>
@@ -258,24 +258,6 @@ export default function DocsPage() {
               justifyContent: "center",
               gap: 6,
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "scale(1.04)";
-              e.currentTarget.style.boxShadow = "var(--shadow-lg)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.boxShadow = "var(--shadow-sm)";
-            }}
-            onMouseDown={(e) => {
-              e.currentTarget.style.transform = "scale(0.96)";
-              e.currentTarget.style.boxShadow = "none";
-              e.currentTarget.style.transition = "transform 0.07s ease";
-            }}
-            onMouseUp={(e) => {
-              e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.boxShadow = "var(--shadow-sm)";
-              e.currentTarget.style.transition = "box-shadow 0.1s ease, transform 0.1s linear, filter 0.15s ease";
-            }}
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
               <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
@@ -283,7 +265,7 @@ export default function DocsPage() {
             BACK
           </button>
         </div>
-        <h1 style={{ fontSize: "clamp(22px, 4vw, 32px)", fontWeight: 700, fontStyle: "italic", letterSpacing: "-0.5px", color: "var(--text)", marginBottom: 8 }}>
+        <h1 style={{ fontSize: "clamp(22px, 4vw, 32px)", fontWeight: 900, fontStyle: "italic", letterSpacing: "-0.5px", color: "var(--text)", marginBottom: 8 }}>
           Explore API
         </h1>
         <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.7 }}>
@@ -313,19 +295,15 @@ export default function DocsPage() {
           <button
             onClick={() => setShowFilter(v => !v)}
             aria-label="Filter by category"
+            className="theme-toggle"
             style={{
               width: 48, height: 48,
-              border: "1px solid var(--border-color)", borderRadius: 10,
-              background: activeTag !== "All" ? "var(--teal)" : "var(--surface)",
-              cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
-              boxShadow: "2px 2px 0 var(--border-color)", position: "relative",
-              transition: "all 0.15s"
+              background: activeTag !== "All" ? "var(--accent)" : "var(--surface)",
+              color: activeTag !== "All" ? "var(--accent-text)" : "var(--text)",
             }}
-            onMouseEnter={e => { e.currentTarget.style.transform = "translate(-1px,-1px)"; e.currentTarget.style.boxShadow = "3px 3px 0 var(--border-color)"; }}
-            onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "2px 2px 0 var(--border-color)"; }}
             title="Filter by category"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={activeTag !== "All" ? "#000" : "var(--text)"} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="4" y1="21" x2="4" y2="14"></line>
               <line x1="4" y1="10" x2="4" y2="3"></line>
               <line x1="12" y1="21" x2="12" y2="12"></line>
@@ -339,10 +317,10 @@ export default function DocsPage() {
             {activeTag !== "All" && (
               <span style={{
                 position: "absolute", top: -6, right: -6,
-                background: "var(--red)", color: "#fff", borderRadius: "50%",
-                width: 18, height: 18, fontSize: 9, fontWeight: 700,
+                background: "var(--text)", color: "var(--surface)", borderRadius: "50%",
+                width: 18, height: 18, fontSize: 9, fontWeight: 900,
                 display: "flex", alignItems: "center", justifyContent: "center",
-                border: "1.5px solid var(--border-color)", fontFamily: "var(--font-mono)",
+                border: "var(--border)", fontFamily: "var(--font-mono)",
               }}>
                 1
               </span>
@@ -354,22 +332,21 @@ export default function DocsPage() {
               position: "absolute",
               top: "100%",
               right: 0,
-              marginTop: 10,
+              marginTop: 12,
               width: 280,
               background: "var(--surface)",
-              border: "2px solid var(--border-color)",
-              boxShadow: "3px 3px 0 var(--border-color)",
-              borderRadius: 12,
+              border: "var(--border)",
+              boxShadow: "var(--shadow-lg)",
+              borderRadius: "var(--radius)",
               zIndex: 50,
               display: "flex",
               flexDirection: "column",
               overflow: "hidden",
-              fontFamily: "var(--font-mono)"
             }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 16px 12px" }}>
-                <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text)" }}>FILTER BY CATEGORY</span>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "18px 18px 12px" }}>
+                <span style={{ fontSize: 11, fontWeight: 900, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text)" }}>Filter</span>
                 {activeTag !== "All" && (
-                  <button onClick={() => setActiveTag("All")} aria-label="Clear category filter" style={{ fontSize: 10, fontFamily: "var(--font-mono)", background: "none", border: "none", cursor: "pointer", color: "var(--red)", fontWeight: 700 }}>
+                  <button onClick={() => setActiveTag("All")} style={{ fontSize: 10, background: "none", border: "none", cursor: "pointer", color: "var(--text)", fontWeight: 800, textDecoration: "underline" }}>
                     CLEAR
                   </button>
                 )}
@@ -385,34 +362,19 @@ export default function DocsPage() {
                     style={{
                       width: "100%",
                       textAlign: "left",
-                      padding: "10px 14px",
+                      padding: "12px 14px",
                       display: "flex",
                       alignItems: "center",
                       gap: 12,
-                      background: activeTag === t ? "rgba(78,205,196,0.1)" : "var(--surface)",
-                      border: `2px solid ${activeTag === t ? "var(--teal)" : "var(--border-color)"}`,
-                      boxShadow: activeTag === t ? "2px 2px 0 var(--teal)" : "2px 2px 0 var(--border-color)",
+                      background: activeTag === t ? "var(--accent)" : "var(--surface)",
+                      color: activeTag === t ? "var(--accent-text)" : "var(--text)",
+                      border: "var(--border)",
                       cursor: "pointer",
-                      borderRadius: 8,
-                      color: "var(--text)",
+                      borderRadius: "var(--radius-sm)",
                       transition: "all 0.15s"
                     }}
                   >
-                    <div style={{ 
-                      width: 18, 
-                      height: 18, 
-                      borderRadius: 4, 
-                      border: `2px solid ${activeTag === t ? "var(--teal)" : "var(--border-color)"}`,
-                      background: activeTag === t ? "var(--teal)" : "var(--surface)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                      color: "#000"
-                    }}>
-                      {activeTag === t && "x"}
-                    </div>
-                    <span style={{ fontSize: 13, fontWeight: 700 }}>{t}</span>
+                    <span style={{ fontSize: 13, fontWeight: 800 }}>{t}</span>
                   </button>
                 ))}
               </div>
@@ -423,18 +385,18 @@ export default function DocsPage() {
 
       {/* ── Endpoint groups ────────────────────────────────────────────── */}
       {grouped.length === 0 ? (
-        <div style={{ textAlign: "center", padding: "60px 24px", border: "2.5px dashed var(--border-color)", borderRadius: "var(--radius)" }}>
+        <div style={{ textAlign: "center", padding: "60px 24px", border: "var(--border)", borderRadius: "var(--radius)", background: "var(--surface)" }}>
           <p style={{ fontSize: 13, color: "var(--text-faint)", letterSpacing: "0.04em" }}>No endpoints match your search.</p>
         </div>
       ) : (
         grouped.map(({ tag, items }) => (
           <div key={tag} style={{ marginBottom: 36 }}>
             {/* Group header */}
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14, paddingBottom: 10, borderBottom: "1px solid var(--divider)" }}>
-              <span style={{ width: 10, height: 10, borderRadius: "50%", background: tagColors[tag] ?? "var(--teal)", display: "block", flexShrink: 0 }} />
-              <h2 style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text)" }}>{tag}</h2>
-              <span style={{ marginLeft: "auto", fontSize: 10, color: "var(--text-faint)", letterSpacing: "0.06em" }}>
-                {items.length} endpoint{items.length !== 1 ? "s" : ""}
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16, paddingBottom: 10, borderBottom: "var(--border)" }}>
+              <span style={{ width: 12, height: 12, borderRadius: "50%", background: tagColors[tag] ?? "var(--text)", border: "var(--border)", display: "block", flexShrink: 0 }} />
+              <h2 style={{ fontSize: 12, fontWeight: 900, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text)" }}>{tag}</h2>
+              <span style={{ marginLeft: "auto", fontSize: 10, fontWeight: 700, color: "var(--text-faint)", letterSpacing: "0.06em" }}>
+                {items.length} EP
               </span>
             </div>
             {items.map((ep) => <EndpointCard key={ep.id} ep={ep} />)}
@@ -443,9 +405,9 @@ export default function DocsPage() {
       )}
 
       {/* ── Footer ───────────────────────────────────────────────────────── */}
-      <div style={{ marginTop: 48, borderTop: "1px solid var(--divider)", paddingTop: 20 }}>
+      <div style={{ marginTop: 48, borderTop: "var(--border)", paddingTop: 20 }}>
         <p style={{ fontSize: 11, color: "var(--text-faint)", letterSpacing: "0.04em" }}>
-          © 2026 Kiracloud API. All Rights Reserved.
+          © 2026 Lune Api. All Rights Reserved.
         </p>
       </div>
     </main>

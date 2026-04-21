@@ -76,7 +76,7 @@ export async function GET() {
                   letterSpacing: '-0.5px',
                 }}
               >
-                Kiracloud<span style={{ color: '#00bc96' }}>.</span>API
+                Lune<span style={{ color: '#00bc96' }}>.</span>Api
               </div>
               <div style={{ fontSize: '14px', color: '#a0a9c9', marginTop: '4px' }}>
                 API Documentation & Tools
@@ -144,7 +144,7 @@ export async function GET() {
               letterSpacing: '0.1em',
             }}
           >
-            kiracloud-api.vercel.app
+            lune-api.vercel.app
           </div>
         </div>
       </div>
