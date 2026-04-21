@@ -16,13 +16,25 @@ interface SystemStats {
   nodeVersion: string;
 }
 
+interface UserSession {
+  ip: string;
+  battery: string;
+  batteryLoading: boolean;
+}
+
 export default function Home() {
   const totalEndpoints = endpoints.length;
   const totalCategories = tags.length;
   const [stats, setStats] = useState<SystemStats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [userSession, setUserSession] = useState<UserSession>({
+    ip: "Detecting...",
+    battery: "N/A",
+    batteryLoading: true
+  });
 
   useEffect(() => {
+    // Fetch Server Stats
     fetch("/api/system")
       .then((res) => res.json())
       .then((data) => {
@@ -30,6 +42,29 @@ export default function Home() {
         setLoading(false);
       })
       .catch(() => setLoading(false));
+
+    // Fetch User IP
+    fetch("https://api.ipify.org?format=json")
+      .then(res => res.json())
+      .then(data => setUserSession(prev => ({ ...prev, ip: data.ip })))
+      .catch(() => setUserSession(prev => ({ ...prev, ip: "Unknown" })));
+
+    // Fetch Battery Info
+    if ("getBattery" in navigator) {
+      (navigator as any).getBattery().then((battery: any) => {
+        const updateBattery = () => {
+          setUserSession(prev => ({ 
+            ...prev, 
+            battery: `${Math.round(battery.level * 100)}%`,
+            batteryLoading: false 
+          }));
+        };
+        updateBattery();
+        battery.addEventListener("levelchange", updateBattery);
+      });
+    } else {
+      setUserSession(prev => ({ ...prev, battery: "Not Supported", batteryLoading: false }));
+    }
   }, []);
 
   return (
@@ -119,10 +154,26 @@ export default function Home() {
 
           {/* System Info */}
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+             <p style={{ fontSize: 10, fontWeight: 900, color: "var(--text-faint)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 4 }}>Server</p>
              {[
                { label: "Platform", value: loading ? "..." : stats?.platform },
                { label: "CPUs", value: loading ? "..." : `${stats?.cpus} Cores` },
                { label: "Runtime", value: loading ? "..." : stats?.nodeVersion },
+             ].map((item) => (
+               <div key={item.label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: 8, borderBottom: "1px dashed var(--divider)" }}>
+                 <span style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)" }}>{item.label}</span>
+                 <span style={{ fontSize: 11, fontWeight: 800, color: "var(--text)" }}>{item.value}</span>
+               </div>
+             ))}
+          </div>
+
+          {/* User Session Info */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+             <p style={{ fontSize: 10, fontWeight: 900, color: "var(--text-faint)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 4 }}>Your Session</p>
+             {[
+               { label: "IP Address", value: userSession.ip },
+               { label: "Battery", value: userSession.batteryLoading ? "..." : userSession.battery },
+               { label: "Location", value: "Detecting..." }, // Bonus placeholder
              ].map((item) => (
                <div key={item.label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: 8, borderBottom: "1px dashed var(--divider)" }}>
                  <span style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)" }}>{item.label}</span>
