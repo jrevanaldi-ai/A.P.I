@@ -113,8 +113,8 @@ export default function FAQ() {
             <div
               key={index}
               style={{
-                border: '2.5px solid var(--border-color)',
-                borderRadius: 12,
+                border: 'var(--border)',
+                borderRadius: 'var(--radius)',
                 background: 'var(--surface)',
                 boxShadow: 'var(--shadow)',
                 overflow: 'hidden',
@@ -135,7 +135,7 @@ export default function FAQ() {
                   transition: 'all 0.2s',
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background = 'var(--border-color)';
+                  (e.currentTarget as HTMLButtonElement).style.background = 'var(--surface2)';
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
@@ -173,9 +173,9 @@ export default function FAQ() {
               {isExpanded && (
                 <div
                   style={{
-                    borderTop: '1.5px solid var(--border-color)',
+                    borderTop: 'var(--border)',
                     padding: '16px 20px',
-                    background: 'rgba(0, 0, 0, 0.2)',
+                    background: 'var(--surface2)',
                   }}
                 >
                   <p
