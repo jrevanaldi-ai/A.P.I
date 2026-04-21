@@ -1,14 +1,40 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { endpoints, tags } from "@/config/endpoints";
+
+interface SystemStats {
+  status: string;
+  memory: {
+    usagePercent: string;
+    used: string;
+    total: string;
+  };
+  platform: string;
+  cpus: number;
+  nodeVersion: string;
+}
 
 export default function Home() {
   const totalEndpoints = endpoints.length;
   const totalCategories = tags.length;
+  const [stats, setStats] = useState<SystemStats | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/system")
+      .then((res) => res.json())
+      .then((data) => {
+        setStats(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
 
   return (
     <main style={{ maxWidth: 860, margin: "0 auto", padding: "40px 24px", position: "relative" }}>
+      {/* ... Hero section code (tetap sama) ... */}
 
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <div style={{ 
@@ -62,6 +88,49 @@ export default function Home() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* ── System Health ────────────────────────────────────────────────── */}
+      <div className="card" style={{ padding: "32px 28px", marginBottom: 48, background: "var(--surface)" }}>
+        <h3 className="section-title" style={{ fontSize: 14, fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text)", marginBottom: 24, display: "flex", alignItems: "center", gap: 10 }}>
+          <span style={{ width: 10, height: 10, borderRadius: "50%", background: loading ? "var(--text-faint)" : "var(--text)", border: "var(--border)", display: "block" }} />
+          System Health
+        </h3>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 32 }}>
+          {/* Memory Usage */}
+          <div>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
+              <span style={{ fontSize: 11, fontWeight: 800, textTransform: "uppercase", color: "var(--text-muted)" }}>Memory Usage</span>
+              <span style={{ fontSize: 11, fontWeight: 900, color: "var(--text)" }}>{loading ? "..." : stats?.memory.usagePercent}</span>
+            </div>
+            <div style={{ height: 12, width: "100%", background: "var(--surface2)", border: "var(--border)", borderRadius: 6, overflow: "hidden" }}>
+              <div style={{ 
+                height: "100%", 
+                width: loading ? "0%" : stats?.memory.usagePercent, 
+                background: "var(--accent)", 
+                transition: "width 1s cubic-bezier(0.2, 0.8, 0.2, 1)" 
+              }} />
+            </div>
+            <div style={{ marginTop: 8, fontSize: 10, color: "var(--text-faint)", fontWeight: 700 }}>
+              {loading ? "Calculating..." : `${stats?.memory.used} used of ${stats?.memory.total}`}
+            </div>
+          </div>
+
+          {/* System Info */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+             {[
+               { label: "Platform", value: loading ? "..." : stats?.platform },
+               { label: "CPUs", value: loading ? "..." : `${stats?.cpus} Cores` },
+               { label: "Runtime", value: loading ? "..." : stats?.nodeVersion },
+             ].map((item) => (
+               <div key={item.label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: 8, borderBottom: "1px dashed var(--divider)" }}>
+                 <span style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)" }}>{item.label}</span>
+                 <span style={{ fontSize: 11, fontWeight: 800, color: "var(--text)" }}>{item.value}</span>
+               </div>
+             ))}
+          </div>
+        </div>
       </div>
 
       {/* ── Getting Started ──────────────────────────────────────────────── */}
