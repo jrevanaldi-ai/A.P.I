@@ -42,7 +42,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         height: "100%", width: 260,
         background: "var(--surface)",
         borderLeft: "var(--border)",
-        boxShadow: isOpen ? "-6px 0 0 var(--border-color)" : "none",
+        boxShadow: "none",
         zIndex: 100,
         transform: isOpen ? "translateX(0)" : "translateX(100%)",
         transition: "transform 0.3s cubic-bezier(0.22,1,0.36,1)",

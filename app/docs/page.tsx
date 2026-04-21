@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Swal from "sweetalert2";
 import { endpoints, tags, type Tag, type EndpointConfig, getApiPath } from "@/config/endpoints";
 
 /* ─── Tag color map ────────────────────────────────────────────────────── */
@@ -48,8 +49,8 @@ function ResponsePanel({ data, ms }: { data: unknown; ms: number }) {
       </div>
       <div className="terminal">
         <div className="terminal-bar">
-          {["#333", "#333", "#333"].map((c, i) => (
-            <span key={i} className="terminal-dot" style={{ background: "transparent", border: "1.5px solid var(--border-color)" }} />
+          {["#ff5f56", "#ffbd2e", "#27c93f"].map((c, i) => (
+            <span key={i} className="terminal-dot" style={{ background: c, border: "none" }} />
           ))}
           <span style={{ marginLeft: 6, fontSize: 10, color: "var(--text-faint)", letterSpacing: "0.06em", fontWeight: 700 }}>response — JSON</span>
         </div>

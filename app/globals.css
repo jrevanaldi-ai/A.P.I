@@ -38,9 +38,9 @@
   --border-color: #000000;
   --border-width: 1.5px;
   --border:       var(--border-width) solid var(--border-color);
-  --shadow:       3px 3px 0px var(--border-color);
-  --shadow-lg:    5px 5px 0px var(--border-color);
-  --shadow-sm:    2px 2px 0px var(--border-color);
+  --shadow:       none;
+  --shadow-lg:    none;
+  --shadow-sm:    none;
   
   /* Monochrome Accents */
   --accent:       #000000;
@@ -72,9 +72,9 @@
   --text-muted:   #aaaaaa;
   --text-faint:   #555555;
   --border-color: #ffffff;
-  --shadow:       3px 3px 0px #ffffff;
-  --shadow-lg:    5px 5px 0px #ffffff;
-  --shadow-sm:    2px 2px 0px #ffffff;
+  --shadow:       none;
+  --shadow-lg:    none;
+  --shadow-sm:    none;
   
   --accent:       #ffffff;
   --accent-text:  #000000;
@@ -137,8 +137,8 @@ html, body {
 }
 
 .card:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: var(--shadow-lg);
+  transform: none;
+  box-shadow: none;
 }
 
 /* ── Buttons ─────────────────────────────────────────────────────────────── */
@@ -154,19 +154,21 @@ html, body {
   border: var(--border);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: all 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: all 0.15s ease;
   text-decoration: none;
   white-space: nowrap;
   user-select: none;
 }
 
 .btn:hover:not([disabled]) { 
-  transform: translate(-3px, -3px);
-  box-shadow: var(--shadow);
+  transform: none;
+  box-shadow: none;
+  background: var(--text);
+  color: var(--surface);
 }
 
 .btn:active:not([disabled]) { 
-  transform: translate(0, 0);
+  transform: scale(0.98);
   box-shadow: none;
 }
 
@@ -200,8 +202,8 @@ html, body {
 }
 
 .input-field:focus { 
-  box-shadow: var(--shadow-sm);
-  transform: translate(-1px, -1px);
+  box-shadow: none;
+  border-color: var(--text);
 }
 
 /* ── Terminal ────────────────────────────────────────────────────────────── */
@@ -210,7 +212,7 @@ html, body {
   border: var(--border);
   border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: var(--shadow);
+  box-shadow: none;
 }
 
 .terminal-bar {
@@ -233,6 +235,9 @@ html, body {
   font-family: var(--font-mono);
   font-size: 13px;
   line-height: 1.6;
+  max-height: 400px;
+  overflow: auto;
+  white-space: pre;
 }
 
 /* ── Sidebar ─────────────────────────────────────────────────────────────── */
@@ -255,8 +260,8 @@ html, body {
 .sidebar-link:hover, .sidebar-link.active {
   background: var(--accent);
   color: var(--accent-text);
-  transform: translate(-2px, -2px);
-  box-shadow: var(--shadow-sm);
+  transform: none;
+  box-shadow: none;
 }
 
 /* ── Endpoint Cards ──────────────────────────────────────────────────────── */
@@ -266,13 +271,13 @@ html, body {
   border-radius: var(--radius);
   margin-bottom: 16px;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
   transition: var(--transition);
 }
 
 .endpoint-card:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: var(--shadow);
+  transform: none;
+  box-shadow: none;
 }
 
 .endpoint-header {
@@ -310,8 +315,9 @@ html, body {
 }
 
 .theme-toggle:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: var(--shadow-sm);
+  transform: none;
+  box-shadow: none;
+  background: var(--surface2);
 }
 
 /* ── Animations ──────────────────────────────────────────────────────────── */
@@ -328,14 +334,14 @@ html, body {
 .neobrutalism-popup {
   border: var(--border) !important;
   border-radius: var(--radius) !important;
-  box-shadow: var(--shadow-lg) !important;
+  box-shadow: none !important;
   font-family: var(--font-mono) !important;
 }
 
 .swal2-styled.swal2-confirm {
   border: var(--border) !important;
   border-radius: var(--radius-sm) !important;
-  box-shadow: var(--shadow-sm) !important;
+  box-shadow: none !important;
   font-weight: 800 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.1em !important;
@@ -343,8 +349,8 @@ html, body {
 }
 
 .swal2-styled.swal2-confirm:hover {
-  transform: translate(-2px, -2px) !important;
-  box-shadow: var(--shadow) !important;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 /* ── Responsive ──────────────────────────────────────────────────────────── */
