@@ -18,6 +18,7 @@ interface SystemStats {
 
 interface UserSession {
   ip: string;
+  location: string;
   battery: string;
   batteryLoading: boolean;
 }
@@ -29,6 +30,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [userSession, setUserSession] = useState<UserSession>({
     ip: "Detecting...",
+    location: "Detecting...",
     battery: "N/A",
     batteryLoading: true
   });
@@ -43,11 +45,15 @@ export default function Home() {
       })
       .catch(() => setLoading(false));
 
-    // Fetch User IP
-    fetch("https://api.ipify.org?format=json")
+    // Fetch User IP & Location
+    fetch("https://ipapi.co/json/")
       .then(res => res.json())
-      .then(data => setUserSession(prev => ({ ...prev, ip: data.ip })))
-      .catch(() => setUserSession(prev => ({ ...prev, ip: "Unknown" })));
+      .then(data => setUserSession(prev => ({ 
+        ...prev, 
+        ip: data.ip,
+        location: `${data.city}, ${data.country_name}` 
+      })))
+      .catch(() => setUserSession(prev => ({ ...prev, ip: "Unknown", location: "Unknown" })));
 
     // Fetch Battery Info
     if ("getBattery" in navigator) {
@@ -172,8 +178,8 @@ export default function Home() {
              <p style={{ fontSize: 10, fontWeight: 900, color: "var(--text-faint)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 4 }}>Your Session</p>
              {[
                { label: "IP Address", value: userSession.ip },
+               { label: "Location", value: userSession.location },
                { label: "Battery", value: userSession.batteryLoading ? "..." : userSession.battery },
-               { label: "Location", value: "Detecting..." }, // Bonus placeholder
              ].map((item) => (
                <div key={item.label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: 8, borderBottom: "1px dashed var(--divider)" }}>
                  <span style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)" }}>{item.label}</span>
