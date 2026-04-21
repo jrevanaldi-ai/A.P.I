@@ -144,7 +144,7 @@ export async function GET() {
               letterSpacing: '0.1em',
             }}
           >
-            lune-api.vercel.app
+            api.astralune.cv
           </div>
         </div>
       </div>

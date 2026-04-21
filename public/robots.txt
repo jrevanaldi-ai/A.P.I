@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lune-api.vercel.app/sitemap.xml
+Sitemap: https://api.astralune.cv/sitemap.xml
 
 # Disallow admin and private paths
 Disallow: /api/

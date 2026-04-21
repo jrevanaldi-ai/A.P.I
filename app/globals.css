@@ -324,6 +324,29 @@ html, body {
   animation: spin 0.8s linear infinite;
 }
 
+/* ── SweetAlert Neobrutalism ─────────────────────────────────────────────── */
+.neobrutalism-popup {
+  border: var(--border) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-lg) !important;
+  font-family: var(--font-mono) !important;
+}
+
+.swal2-styled.swal2-confirm {
+  border: var(--border) !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: var(--shadow-sm) !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  transition: all 0.15s ease !important;
+}
+
+.swal2-styled.swal2-confirm:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: var(--shadow) !important;
+}
+
 /* ── Responsive ──────────────────────────────────────────────────────────── */
 @media (max-width: 640px) {
   :root { --content-px: 16px; }

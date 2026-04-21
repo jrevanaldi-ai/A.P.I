@@ -91,7 +91,25 @@ function EndpointCard({ ep }: { ep: EndpointConfig }) {
 
   const handleExecute = async () => {
     const mainVal = paramValues[ep.param] ?? "";
-    if (ep.param && !mainVal.trim()) return;
+    
+    // Validation with SweetAlert
+    if (ep.param && !mainVal.trim()) {
+      Swal.fire({
+        title: "Missing Parameter",
+        text: `Please enter the ${ep.param} to continue.`,
+        icon: "warning",
+        background: "var(--surface)",
+        color: "var(--text)",
+        confirmButtonColor: "var(--accent)",
+        confirmButtonText: "Got it!",
+        customClass: {
+          popup: "neobrutalism-popup",
+        }
+      });
+      mainRef.current?.focus();
+      return;
+    }
+
     setLoading(true);
     setResponse(null);
 
@@ -199,7 +217,7 @@ function EndpointCard({ ep }: { ep: EndpointConfig }) {
             <button
               className="btn btn-black"
               onClick={handleExecute}
-              disabled={loading || !!(ep.param && !(paramValues[ep.param] ?? "").trim())}
+              disabled={loading}
               style={{ minWidth: 120 }}
             >
               {loading

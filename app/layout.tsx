@@ -13,7 +13,7 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://lune-api.vercel.app"),
+  metadataBase: new URL("https://api.astralune.cv"),
   title: "Lune Api - Powerful REST API Platform",
   description: "A seamless, high-performance REST API built for developers. Zero authentication required — just send a request and power up your applications instantly.",
   keywords: ["API", "download", "spotify", "youtube", "tiktok", "instagram", "lyrics", "REST API", "Lune Api", "LuneDev"],
@@ -36,11 +36,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Lune Api - Powerful REST API Platform",
     description: "A seamless, high-performance REST API built for developers. Zero authentication required — just send a request and power up your applications instantly.",
-    url: "https://lune-api.vercel.app",
+    url: "https://api.astralune.cv",
     siteName: "Lune Api",
     images: [
       {
-        url: "https://lune-api.vercel.app/og.png",
+        url: "https://api.astralune.cv/og.png",
         width: 1280,
         height: 640,
         alt: "Lune Api - Powerful REST API Platform",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Lune Api - Powerful REST API Platform",
     description: "A seamless, high-performance REST API built for developers. Zero authentication required — just send a request and power up your applications instantly.",
-    images: ["https://lune-api.vercel.app/og.png"],
+    images: ["https://api.astralune.cv/og.png"],
   },
   icons: {
     icon: [
