@@ -36,11 +36,11 @@
   --text-muted:   #444444;
   --text-faint:   #888888;
   --border-color: #000000;
-  --border-width: 2.5px;
+  --border-width: 1.5px;
   --border:       var(--border-width) solid var(--border-color);
-  --shadow:       5px 5px 0px var(--border-color);
-  --shadow-lg:    8px 8px 0px var(--border-color);
-  --shadow-sm:    3px 3px 0px var(--border-color);
+  --shadow:       3px 3px 0px var(--border-color);
+  --shadow-lg:    5px 5px 0px var(--border-color);
+  --shadow-sm:    2px 2px 0px var(--border-color);
   
   /* Monochrome Accents */
   --accent:       #000000;
@@ -72,9 +72,9 @@
   --text-muted:   #aaaaaa;
   --text-faint:   #555555;
   --border-color: #ffffff;
-  --shadow:       5px 5px 0px #ffffff;
-  --shadow-lg:    8px 8px 0px #ffffff;
-  --shadow-sm:    3px 3px 0px #ffffff;
+  --shadow:       3px 3px 0px #ffffff;
+  --shadow-lg:    5px 5px 0px #ffffff;
+  --shadow-sm:    2px 2px 0px #ffffff;
   
   --accent:       #ffffff;
   --accent-text:  #000000;
