@@ -35,6 +35,28 @@ function ResponsePanel({ data, ms }: { data: unknown; ms: number }) {
   const json = JSON.stringify(data, null, 2);
   const success = !!(data && typeof data === "object" && ("success" in (data as object) ? (data as { success: boolean }).success : "result" in (data as object) ? true : "status" in (data as object) ? (data as { status: boolean }).status : true));
 
+  const handleSnap = () => {
+    const blob = new Blob([json], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `lune-api-result-${Date.now()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    Swal.fire({
+      title: "Snapped!",
+      text: "JSON result has been downloaded and copied to clipboard.",
+      icon: "success",
+      timer: 2000,
+      showConfirmButton: false,
+      background: "var(--surface)",
+      color: "var(--text)",
+      customClass: { popup: "neobrutalism-popup" }
+    });
+    navigator.clipboard.writeText(json);
+  };
+
   return (
     <div style={{ marginTop: 16 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
@@ -45,7 +67,10 @@ function ResponsePanel({ data, ms }: { data: unknown; ms: number }) {
           </span>
           <span style={{ fontSize: 10, color: "var(--text-faint)" }}>{ms}ms</span>
         </div>
-        <CopyBtn text={json} />
+        <div style={{ display: "flex", gap: 8 }}>
+          <button onClick={handleSnap} className="btn btn-ghost" style={{ padding: "5px 12px", fontSize: 10 }}>📸 Snap</button>
+          <CopyBtn text={json} />
+        </div>
       </div>
       <div className="terminal">
         <div className="terminal-bar">
@@ -83,12 +108,31 @@ function EndpointCard({ ep }: { ep: EndpointConfig }) {
   const [response, setResponse] = useState<unknown>(null);
   const [reqUrl, setReqUrl] = useState("");
   const [ms, setMs] = useState(0);
+  const [activeTab, setActiveTab] = useState<"js" | "python" | "php" | "go">("js");
   const mainRef = useRef<HTMLInputElement>(null);
 
   const allParams = [
     ...(ep.param ? [{ name: ep.param, description: `Main parameter for ${ep.name}`, example: ep.example, required: true }] : []),
     ...(ep.extraParams ?? []),
   ];
+
+  const baseUrl = typeof window !== "undefined" ? window.location.origin : "https://api.astralune.cv";
+  const currentQs = allParams
+    .map((p) => {
+      const v = paramValues[p.name] || p.example || "";
+      return v ? `${p.name}=${encodeURIComponent(v)}` : null;
+    })
+    .filter(Boolean)
+    .join("&");
+  
+  const sampleUrl = `${baseUrl}${getApiPath(ep.path)}${currentQs ? "?" + currentQs : ""}`;
+
+  const snippets = {
+    js: `fetch("${sampleUrl}")\n  .then(res => res.json())\n  .then(data => console.log(data));`,
+    python: `import requests\n\nurl = "${sampleUrl}"\nresponse = requests.get(url)\nprint(response.json())`,
+    php: `<?php\n\n$url = "${sampleUrl}";\n$response = file_get_contents($url);\n$data = json_decode($response, true);\nprint_r($data);`,
+    go: `package main\n\nimport (\n  "fmt"\n  "io/ioutil"\n  "net/http"\n)\n\nfunc main() {\n  resp, _ := http.Get("${sampleUrl}")\n  body, _ := ioutil.ReadAll(resp.Body)\n  fmt.Println(string(body))\n}`,
+  };
 
   const handleExecute = async () => {
     const mainVal = paramValues[ep.param] ?? "";
@@ -212,6 +256,34 @@ function EndpointCard({ ep }: { ep: EndpointConfig }) {
               </div>
             </div>
           )}
+
+          {/* Code Snippets (Fitur 2) */}
+          <div style={{ marginBottom: 24 }}>
+            <div style={{ display: "flex", gap: 12, marginBottom: 12, borderBottom: "var(--border)", paddingBottom: 8 }}>
+              {(["js", "python", "php", "go"] as const).map((lang) => (
+                <button
+                  key={lang}
+                  onClick={() => setActiveTab(lang)}
+                  style={{
+                    fontSize: 10, fontWeight: 800, textTransform: "uppercase", padding: "4px 8px",
+                    background: activeTab === lang ? "var(--text)" : "transparent",
+                    color: activeTab === lang ? "var(--surface)" : "var(--text-faint)",
+                    borderRadius: 4, cursor: "pointer", border: "none"
+                  }}
+                >
+                  {lang === "js" ? "JavaScript" : lang}
+                </button>
+              ))}
+            </div>
+            <div style={{ background: "#000", borderRadius: 8, padding: 16, position: "relative" }}>
+               <pre style={{ margin: 0, fontSize: 11, color: "#fff", fontFamily: "var(--font-mono)", overflowX: "auto" }}>
+                 <code>{snippets[activeTab]}</code>
+               </pre>
+               <div style={{ position: "absolute", top: 8, right: 8 }}>
+                 <CopyBtn text={snippets[activeTab]} />
+               </div>
+            </div>
+          </div>
 
           {/* Actions */}
           <div style={{ display: "flex", gap: 10 }}>

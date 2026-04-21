@@ -25,10 +25,34 @@ interface UserSession {
   batteryLoading: boolean;
 }
 
+interface DailyStat {
+  date: string;
+  count: number;
+}
+
+interface LogEntry {
+  method: string;
+  endpoint: string;
+  status: number;
+  latency: string;
+  timestamp: string;
+}
+
+interface UptimeBar {
+  status: "up" | "down";
+}
+
+interface DashboardStats {
+  dailyStats: DailyStat[];
+  recentLogs: LogEntry[];
+  uptimeHeartbeat: UptimeBar[];
+}
+
 export default function Home() {
   const totalEndpoints = endpoints.length;
   const totalCategories = tags.length;
   const [stats, setStats] = useState<SystemStats | null>(null);
+  const [dbStats, setDbStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [userSession, setUserSession] = useState<UserSession>({
     ip: "Detecting...",
@@ -46,6 +70,12 @@ export default function Home() {
         setLoading(false);
       })
       .catch(() => setLoading(false));
+
+    // Fetch Dashboard Stats (Daily, Logs, Heartbeat)
+    fetch("/api/stats")
+      .then((res) => res.json())
+      .then((data) => setDbStats(data))
+      .catch(() => {});
 
     // Fetch User IP & Location from our own API
     fetch("/api/user")
@@ -75,10 +105,11 @@ export default function Home() {
     }
   }, []);
 
+  const maxRequests = dbStats ? Math.max(...dbStats.dailyStats.map(s => s.count)) : 1000;
+
   return (
     <main style={{ maxWidth: 860, margin: "0 auto", padding: "40px 24px", position: "relative" }}>
-
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
+      {/* ... Hero section ... */}
       <div style={{ 
         position: "relative", 
         marginBottom: 48, 
@@ -91,7 +122,7 @@ export default function Home() {
         <div style={{ position: "relative", zIndex: 1, padding: "52px 40px" }}>
           {/* Status badge */}
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 24 }}>
-             <span style={{ width: 10, height: 10, borderRadius: "50%", background: "var(--text)", display: "block", border: "var(--border)" }} />
+             <span className="pulse" style={{ width: 10, height: 10, borderRadius: "50%", background: "var(--text)", display: "block", border: "var(--border)" }} />
              <span style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", letterSpacing: "0.06em", textTransform: "uppercase" }}>System Online — v2.0</span>
           </div>
 
@@ -99,7 +130,7 @@ export default function Home() {
             Simple.<br />Powerful.<br /><span style={{ WebkitTextStroke: "1.5px var(--text)", color: "transparent" }}>Fast.</span>
           </h1>
           <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.8, maxWidth: 480, marginBottom: 32, fontWeight: 500 }}>
-            A seamless, high-performance REST API built for developers. Zero authentication required — power up ваure applications instantly with Lune Api.
+            A seamless, high-performance REST API built for developers. Zero authentication required — power up your applications instantly with Lune Api.
           </p>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             <Link href="/docs" className="btn btn-black">Explore Docs →</Link>
@@ -109,7 +140,7 @@ export default function Home() {
       </div>
 
       {/* ── Stats ────────────────────────────────────────────────────────── */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16, marginBottom: 48 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16, marginBottom: 16 }}>
         {[
           { label: "Total Endpoints", value: totalEndpoints, icon: "◈" },
           { label: "Categories", value: totalCategories, icon: "⊞" },
@@ -130,6 +161,72 @@ export default function Home() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* ── Usage Chart (Fitur 1) ────────────────────────────────────────── */}
+      <div className="card" style={{ padding: "32px 28px", marginBottom: 16, background: "var(--surface)" }}>
+        <h3 className="section-title" style={{ fontSize: 14, fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text)", marginBottom: 32, display: "flex", alignItems: "center", gap: 10 }}>
+          <span style={{ fontSize: 18 }}>📈</span> API Usage (7 Days)
+        </h3>
+        
+        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", height: 140, gap: 8, paddingBottom: 10 }}>
+          {dbStats?.dailyStats.map((stat, i) => (
+            <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+               <div style={{ 
+                 width: "100%", 
+                 height: `${(stat.count / maxRequests) * 100}%`, 
+                 minHeight: 4,
+                 background: "var(--text)", 
+                 borderRadius: "4px 4px 0 0",
+                 position: "relative",
+                 transition: "height 1s cubic-bezier(0.2, 0.8, 0.2, 1)"
+               }}>
+                 <div className="chart-tooltip" style={{ 
+                    position: "absolute", top: -30, left: "50%", transform: "translateX(-50%)", 
+                    background: "var(--text)", color: "var(--surface)", fontSize: 10, fontWeight: 800, 
+                    padding: "3px 6px", borderRadius: 4, opacity: 0 
+                 }}>{stat.count}</div>
+               </div>
+               <span style={{ fontSize: 10, fontWeight: 800, color: "var(--text-faint)", textTransform: "uppercase" }}>{stat.date}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Uptime Heartbeat (Fitur 5) ───────────────────────────────────── */}
+      <div className="card" style={{ padding: "18px 24px", marginBottom: 16, background: "var(--surface)" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+          <span style={{ fontSize: 11, fontWeight: 800, textTransform: "uppercase", color: "var(--text-muted)" }}>Service Reliability</span>
+          <span style={{ fontSize: 10, fontWeight: 800, color: "var(--text)" }}>99.9% Uptime</span>
+        </div>
+        <div style={{ display: "flex", gap: 3, height: 24 }}>
+           {dbStats?.uptimeHeartbeat.map((bar, i) => (
+             <div key={i} style={{ 
+               flex: 1, 
+               background: bar.status === "up" ? "var(--text)" : "var(--text-faint)", 
+               borderRadius: 2,
+               opacity: bar.status === "up" ? (0.3 + (i/30)) : 0.1
+             }} />
+           ))}
+        </div>
+      </div>
+
+      {/* ── Live Logs (Fitur 4) ──────────────────────────────────────────── */}
+      <div className="card" style={{ padding: "24px", marginBottom: 16, background: "var(--code-bg)", color: "#fff", border: "var(--border)" }}>
+         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+            <div className="pulse" style={{ width: 8, height: 8, borderRadius: "50%", background: "#4ade80" }} />
+            <span style={{ fontSize: 10, fontWeight: 900, letterSpacing: "0.1em", textTransform: "uppercase", color: "#aaa" }}>Live API Pulse</span>
+         </div>
+         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {dbStats?.recentLogs.map((log, i) => (
+              <div key={i} style={{ fontSize: 11, fontFamily: "var(--font-mono)", display: "flex", gap: 12, opacity: 1 - (i * 0.2) }}>
+                 <span style={{ color: "#aaa" }}>[{log.timestamp}]</span>
+                 <span style={{ color: "#4ade80", fontWeight: 700 }}>{log.method}</span>
+                 <span style={{ flex: 1, color: "#fff" }}>{log.endpoint}</span>
+                 <span style={{ color: "#aaa" }}>{log.latency}</span>
+              </div>
+            ))}
+         </div>
       </div>
 
       {/* ── System Health ────────────────────────────────────────────────── */}
