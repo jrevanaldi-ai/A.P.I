@@ -1,7 +1,7 @@
 {
   "name": "LuneApi",
   "short_name": "LuneApi",
-  "description": "Powerful REST API with YouTube, Spotify, TikTok, Instagram downloaders and lyrics search",
+  "description": "Simple and powerful REST API for tools and downloaders.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

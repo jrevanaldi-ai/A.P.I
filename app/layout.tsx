@@ -15,7 +15,7 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://api.astralune.cv"),
   title: "LuneApi - Powerful REST API Platform",
-  description: "A seamless, high-performance REST API built for developers. Zero authentication required — just send a request and power up your applications instantly.",
+  description: "Fast, simple, and powerful REST API for developers. No authentication required.",
   keywords: ["API", "download", "spotify", "youtube", "tiktok", "instagram", "lyrics", "REST API", "LuneApi", "LuneDev"],
   verification: {
     google: "your-google-verification-code",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "LuneApi - Powerful REST API Platform",
-    description: "A seamless, high-performance REST API built for developers. Zero authentication required — just send a request and power up your applications instantly.",
+    description: "Fast, simple, and powerful REST API for developers. No authentication required.",
     url: "https://api.astralune.cv",
     siteName: "LuneApi",
     images: [
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "LuneApi - Powerful REST API Platform",
-    description: "A seamless, high-performance REST API built for developers. Zero authentication required — just send a request and power up your applications instantly.",
+    description: "Fast, simple, and powerful REST API for developers. No authentication required.",
     images: ["https://api.astralune.cv/og.png"],
   },
   icons: {

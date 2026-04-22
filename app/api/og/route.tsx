@@ -109,8 +109,7 @@ export async function GET() {
               maxWidth: '600px',
             }}
           >
-            Downloaders, search tools, and system utilities in one place. Simple to integrate,
-            powerful to build with.
+            Fast, simple, and powerful REST API for all your needs.
           </div>
         </div>
 
