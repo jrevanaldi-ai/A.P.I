@@ -43,10 +43,10 @@ function ResponsePanel({ data, ms }: { data: unknown; ms: number }) {
     a.download = `lune-api-result-${Date.now()}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    
+
     Swal.fire({
       title: "Snapped!",
-      text: "JSON result has been downloaded and copied to clipboard.",
+      text: "JSON result has been downloaded.",
       icon: "success",
       timer: 2000,
       showConfirmButton: false,
@@ -54,9 +54,7 @@ function ResponsePanel({ data, ms }: { data: unknown; ms: number }) {
       color: "var(--text)",
       customClass: { popup: "neobrutalism-popup" }
     });
-    navigator.clipboard.writeText(json);
   };
-
   return (
     <div style={{ marginTop: 16 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
