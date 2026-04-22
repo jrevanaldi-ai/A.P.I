@@ -65,7 +65,7 @@ export async function GET() {
                 fontFamily="'Courier New', 'Monaco', monospace"
                 letterSpacing="-3"
               >
-                K
+                L
               </text>
             </svg>
             <div>
@@ -76,7 +76,7 @@ export async function GET() {
                   letterSpacing: '-0.5px',
                 }}
               >
-                Lune<span style={{ color: '#00bc96' }}>.</span>Api
+                LuneApi
               </div>
               <div style={{ fontSize: '14px', color: '#a0a9c9', marginTop: '4px' }}>
                 API Documentation & Tools

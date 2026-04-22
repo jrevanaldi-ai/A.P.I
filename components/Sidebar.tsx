@@ -103,7 +103,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
         {/* Footer */}
         <div style={{ padding: "14px 20px", borderTop: "1px solid var(--divider)" }}>
-          <p style={{ fontSize: 10, color: "var(--text-faint)", letterSpacing: "0.04em" }}>© 2026 Lune Api</p>
+          <p style={{ fontSize: 10, color: "var(--text-faint)", letterSpacing: "0.04em" }}>© 2026 LuneApi</p>
         </div>
       </aside>
     </>

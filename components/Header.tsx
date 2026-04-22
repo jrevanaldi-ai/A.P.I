@@ -45,7 +45,7 @@ export function Header() {
           <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 14 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
               <span style={{ fontFamily: "var(--font-mono)", fontWeight: 800, fontSize: 18, color: "var(--text)", letterSpacing: "-0.04em", lineHeight: 1 }}>
-                Lune<span style={{ color: "var(--text-muted)" }}>.</span>Api
+                LuneApi
               </span>
             </div>
 
