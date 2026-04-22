@@ -68,6 +68,19 @@ export const endpoints: EndpointConfig[] = [
     example: "A Couple Minutes Olivia Dean",
     param: "q",
   },
+  {
+    id: "gsmarena",
+    name: "GSM Arena Search",
+    path: "/search/gsm",
+    method: "GET",
+    tag: "Search",
+    description: "Search for mobile devices and retrieve detailed specifications from GSM Arena.",
+    example: "iPhone 16 Pro",
+    param: "q",
+    extraParams: [
+      { name: "url", description: "Direct URL to GSM Arena device page for detailed specs", example: "https://m.gsmarena.com/apple_iphone_16-13317.php", required: false },
+    ],
+  },
   // ── System ───────────────────────────────────────────────────────────────
   {
     id: "api-info",
