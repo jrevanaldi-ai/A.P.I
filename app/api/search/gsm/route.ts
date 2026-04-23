@@ -3,6 +3,7 @@ import axios from "axios";
 import { load } from "cheerio";
 import CryptoJS from "crypto-js";
 import { checkMemoryUsage } from "@/lib/memory-guard";
+import { isRateLimited } from "@/lib/security";
 
 class GsmScraper {
   private base_url = "https://m.gsmarena.com";
@@ -95,6 +96,14 @@ class GsmScraper {
 export async function GET(req: NextRequest) {
   const memoryCheck = checkMemoryUsage();
   if (memoryCheck) return memoryCheck;
+
+  const ip = req.headers.get("x-forwarded-for") || "unknown";
+  if (isRateLimited(ip)) {
+    return NextResponse.json(
+      { success: false, message: "Rate limit exceeded" },
+      { status: 429 }
+    );
+  }
 
   const { searchParams } = new URL(req.url);
   const query = searchParams.get("q");

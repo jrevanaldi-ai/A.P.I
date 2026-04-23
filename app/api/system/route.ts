@@ -1,7 +1,16 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import os from "os";
+import { isRateLimited } from "@/lib/security";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const ip = req.headers.get("x-forwarded-for") || "unknown";
+  if (isRateLimited(ip)) {
+    return NextResponse.json(
+      { success: false, message: "Rate limit exceeded" },
+      { status: 429 }
+    );
+  }
+
   const memTotal = os.totalmem();
   const memFree = os.freemem();
   const memUsed = memTotal - memFree;

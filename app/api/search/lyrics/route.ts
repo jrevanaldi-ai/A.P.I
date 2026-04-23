@@ -1,6 +1,7 @@
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 import { checkMemoryUsage } from "@/lib/memory-guard";
+import { isRateLimited } from "@/lib/security";
 
 export const dynamic = "force-dynamic";
 
@@ -52,6 +53,14 @@ async function searchLrcLib(query: string) {
 export async function GET(req: NextRequest) {
   const memoryCheck = checkMemoryUsage();
   if (memoryCheck) return memoryCheck;
+
+  const ip = req.headers.get("x-forwarded-for") || "unknown";
+  if (isRateLimited(ip)) {
+    return NextResponse.json(
+      { success: false, message: "Rate limit exceeded" },
+      { status: 429 }
+    );
+  }
 
   const start = Date.now();
 

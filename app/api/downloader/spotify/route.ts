@@ -2,6 +2,7 @@ import axios from "axios";
 import * as cheerio from "cheerio";
 import { NextRequest, NextResponse } from "next/server";
 import { checkMemoryUsage } from "@/lib/memory-guard";
+import { isRateLimited, isValidUrl } from "@/lib/security";
 
 export const dynamic = "force-dynamic";
 
@@ -150,9 +151,16 @@ export async function GET(req: NextRequest) {
     const memoryCheck = checkMemoryUsage();
     if (memoryCheck) return memoryCheck;
 
+    const ip = req.headers.get("x-forwarded-for") || "unknown";
+    if (isRateLimited(ip)) return NextResponse.json({ success: false, message: "Terlalu banyak permintaan (Rate limit exceeded)" }, { status: 429 });
+
     try {
         const url = req.nextUrl.searchParams.get("url");
         if (!url) throw new Error("URL is missing");
+
+        if (!isValidUrl(url, ['spotify.com', 'open.spotify.com'])) {
+            return NextResponse.json({ success: false, message: "URL tidak valid atau domain tidak didukung" }, { status: 400 });
+        }
 
         const [embedData, audioData] = await Promise.all([
             spotifyEmbed.getMetaData(url),

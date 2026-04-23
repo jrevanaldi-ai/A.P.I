@@ -1,9 +1,18 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import os from "os";
+import { isRateLimited } from "@/lib/security";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const ip = req.headers.get("x-forwarded-for") || "unknown";
+  if (isRateLimited(ip)) {
+    return NextResponse.json(
+      { success: false, message: "Rate limit exceeded" },
+      { status: 429 }
+    );
+  }
+
   try {
     // Generate simulated daily stats for 7 days
     const dailyStats = Array.from({ length: 7 }, (_, i) => {

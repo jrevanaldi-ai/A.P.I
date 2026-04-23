@@ -1,6 +1,7 @@
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 import { checkMemoryUsage } from "@/lib/memory-guard";
+import { isRateLimited, isValidUrl } from "@/lib/security";
 
 export const dynamic = "force-dynamic";
 
@@ -115,12 +116,19 @@ export async function GET(req: NextRequest) {
     const memoryCheck = checkMemoryUsage();
     if (memoryCheck) return memoryCheck;
 
+    const ip = req.headers.get("x-forwarded-for") || "unknown";
+    if (isRateLimited(ip)) return NextResponse.json({ success: false, message: "Terlalu banyak permintaan (Rate limit exceeded)" }, { status: 429 });
+
     try {
         const url = req.nextUrl.searchParams.get("url");
         // Default resolusi diubah ke 'max' untuk kualitas tertinggi
         const resolusi = req.nextUrl.searchParams.get("resolusi") || "max";
         
         if (!url) throw new Error("URL is missing");
+
+        if (!isValidUrl(url, ['youtube.com', 'youtu.be'])) {
+            return NextResponse.json({ success: false, message: "URL tidak valid atau domain tidak didukung" }, { status: 400 });
+        }
 
         const [audioResult, videoResult] = await Promise.allSettled([
             ytAudio.download(url),
