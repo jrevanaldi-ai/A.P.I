@@ -148,7 +148,6 @@ function EndpointCard({ ep }: { ep: EndpointConfig }) {
           popup: "neobrutalism-popup",
         }
       });
-      mainRef.current?.focus();
       return;
     }
 
