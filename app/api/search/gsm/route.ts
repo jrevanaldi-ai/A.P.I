@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 import { load } from "cheerio";
 import CryptoJS from "crypto-js";
+import { checkMemoryUsage } from "@/lib/memory-guard";
 
 class GsmScraper {
   private base_url = "https://m.gsmarena.com";
@@ -92,6 +93,9 @@ class GsmScraper {
 }
 
 export async function GET(req: NextRequest) {
+  const memoryCheck = checkMemoryUsage();
+  if (memoryCheck) return memoryCheck;
+
   const { searchParams } = new URL(req.url);
   const query = searchParams.get("q");
   const url = searchParams.get("url");

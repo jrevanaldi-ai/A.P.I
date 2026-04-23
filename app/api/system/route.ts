@@ -16,6 +16,7 @@ export async function GET() {
       used: `${Math.round(memUsed / 1024 / 1024)} MB`,
       free: `${Math.round(memFree / 1024 / 1024)} MB`,
       usagePercent: `${Math.round((memUsed / memTotal) * 100)}%`,
+      limit: "3072 MB",
     },
     cpus: os.cpus().length,
     hostname: os.hostname(),

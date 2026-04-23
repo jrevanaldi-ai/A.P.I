@@ -1,5 +1,6 @@
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
+import { checkMemoryUsage } from "@/lib/memory-guard";
 
 export const dynamic = "force-dynamic";
 
@@ -49,6 +50,9 @@ async function searchLrcLib(query: string) {
 }
 
 export async function GET(req: NextRequest) {
+  const memoryCheck = checkMemoryUsage();
+  if (memoryCheck) return memoryCheck;
+
   const start = Date.now();
 
   try {

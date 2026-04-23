@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 import { NextRequest, NextResponse } from "next/server";
+import { checkMemoryUsage } from "@/lib/memory-guard";
 
 export const dynamic = "force-dynamic";
 
@@ -146,6 +147,9 @@ const sdown = {
 };
 
 export async function GET(req: NextRequest) {
+    const memoryCheck = checkMemoryUsage();
+    if (memoryCheck) return memoryCheck;
+
     try {
         const url = req.nextUrl.searchParams.get("url");
         if (!url) throw new Error("URL is missing");
