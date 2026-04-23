@@ -1,9 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://api.astralune.cv/sitemap.xml
-
-# Disallow admin and private paths
-Disallow: /api/
-Disallow: /.git/
-Disallow: /node_modules/

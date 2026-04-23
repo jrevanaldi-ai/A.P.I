@@ -124,7 +124,7 @@ export default function Home() {
             Simple.<br />Powerful.<br /><span style={{ WebkitTextStroke: "1.5px var(--text)", color: "transparent" }}>Fast.</span>
           </h1>
           <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.8, maxWidth: 480, marginBottom: 32, fontWeight: 500 }}>
-            A seamless, high-performance REST API built for developers. Zero authentication required — power up your applications instantly with Lune Api.
+            RestApi for Developers
           </p>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             <Link href="/docs" className="btn btn-black">Explore Docs →</Link>

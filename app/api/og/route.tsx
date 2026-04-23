@@ -46,28 +46,8 @@ export async function GET() {
 
         {/* Main content */}
         <div style={{ position: 'relative', zIndex: 10 }}>
-          {/* Logo + Brand */}
+          {/* Brand */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '40px' }}>
-            {/* White K with API Reference style */}
-            <svg
-              width="60"
-              height="60"
-              viewBox="0 0 100 100"
-              style={{ flexShrink: 0 }}
-            >
-              <text
-                x="50"
-                y="72"
-                fontSize="80"
-                fontWeight="700"
-                fill="#ffffff"
-                textAnchor="middle"
-                fontFamily="'Courier New', 'Monaco', monospace"
-                letterSpacing="-3"
-              >
-                L
-              </text>
-            </svg>
             <div>
               <div
                 style={{
@@ -109,7 +89,7 @@ export async function GET() {
               maxWidth: '600px',
             }}
           >
-            Fast, simple, and powerful REST API for all your needs.
+            RestApi for Developers
           </div>
         </div>
 

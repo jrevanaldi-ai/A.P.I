@@ -15,7 +15,7 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://api.astralune.cv"),
   title: "LuneApi - Powerful REST API Platform",
-  description: "Fast, simple, and powerful REST API for developers. No authentication required.",
+  description: "RestApi for Developers",
   keywords: ["API", "download", "spotify", "youtube", "tiktok", "instagram", "lyrics", "REST API", "LuneApi", "LuneDev"],
   verification: {
     google: "your-google-verification-code",
@@ -35,37 +35,16 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "LuneApi - Powerful REST API Platform",
-    description: "Fast, simple, and powerful REST API for developers. No authentication required.",
+    description: "RestApi for Developers",
     url: "https://api.astralune.cv",
     siteName: "LuneApi",
-    images: [
-      {
-        url: "https://api.astralune.cv/og.png",
-        width: 1280,
-        height: 640,
-        alt: "LuneApi - Powerful REST API Platform",
-        type: "image/png",
-      }
-    ],
     locale: "en_US",
     type: "website",
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "LuneApi - Powerful REST API Platform",
-    description: "Fast, simple, and powerful REST API for developers. No authentication required.",
-    images: ["https://api.astralune.cv/og.png"],
-  },
-  icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-512.png", sizes: "512x512", type: "image/png" },
-    ],
-    apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-    ],
+    description: "RestApi for Developers",
   },
   alternates: {
     canonical: "/",

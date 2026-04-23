@@ -357,7 +357,7 @@ export default function DocsPage() {
           Explore API
         </h1>
         <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.7 }}>
-          Explore all available endpoints and integrate them into your application.
+          RestApi for Developers
         </p>
       </div>
 
