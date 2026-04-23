@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Swal from "sweetalert2";
 import { endpoints, tags } from "@/config/endpoints";
 
 export const dynamic = "force-dynamic";
@@ -62,6 +63,32 @@ export default function Home() {
   });
 
   useEffect(() => {
+    const hasSeenPromo = sessionStorage.getItem("hasSeenKudonimePromo");
+    if (!hasSeenPromo) {
+      setTimeout(() => {
+        Swal.fire({
+          title: "Nonton Anime Gratis!",
+          text: "Kunjungi website nonton anime kami di Kudonime untuk koleksi terlengkap.",
+          icon: "info",
+          showCancelButton: true,
+          confirmButtonText: "Kunjungi Sekarang",
+          cancelButtonText: "Nanti Saja",
+          background: "var(--surface)",
+          color: "var(--text)",
+          confirmButtonColor: "var(--accent)",
+          cancelButtonColor: "var(--surface2)",
+          customClass: {
+            popup: "neobrutalism-popup",
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.open("https://www.kudonime.tech", "_blank");
+          }
+          sessionStorage.setItem("hasSeenKudonimePromo", "true");
+        });
+      }, 1500);
+    }
+
     fetch("/api/system")
       .then((res) => res.json())
       .then((data) => {
@@ -105,36 +132,6 @@ export default function Home() {
 
   return (
     <main style={{ maxWidth: 860, margin: "0 auto", padding: "40px 24px", position: "relative" }}>
-      {/* ── Promo Banner ────────────────────────────────────────────────── */}
-      <a 
-        href="https://www.kudonime.tech" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 12,
-          padding: "12px 20px",
-          background: "var(--accent)",
-          color: "var(--accent-text)",
-          borderRadius: "var(--radius)",
-          border: "var(--border)",
-          marginBottom: 24,
-          textDecoration: "none",
-          fontSize: 13,
-          fontWeight: 800,
-          boxShadow: "var(--shadow-sm)",
-          transition: "transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1)"
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-2px)"}
-        onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
-      >
-        <span style={{ fontSize: 18 }}>📺</span>
-        <span>Kunjungi website nonton anime kami di <span style={{ textDecoration: "underline" }}>www.kudonime.tech</span></span>
-        <span style={{ fontSize: 12, opacity: 0.8 }}>↗</span>
-      </a>
-
       <div style={{ 
         position: "relative", 
         marginBottom: 48, 
