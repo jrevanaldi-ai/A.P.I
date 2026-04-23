@@ -62,7 +62,6 @@ export default function Home() {
   });
 
   useEffect(() => {
-    // Fetch Server Stats
     fetch("/api/system")
       .then((res) => res.json())
       .then((data) => {
@@ -71,13 +70,11 @@ export default function Home() {
       })
       .catch(() => setLoading(false));
 
-    // Fetch Dashboard Stats (Daily, Logs, Heartbeat)
     fetch("/api/stats")
       .then((res) => res.json())
       .then((data) => setDbStats(data))
       .catch(() => {});
 
-    // Fetch User IP & Location from our own API
     fetch("/api/user")
       .then(res => res.json())
       .then(data => setUserSession(prev => ({ 
@@ -87,7 +84,6 @@ export default function Home() {
       })))
       .catch(() => setUserSession(prev => ({ ...prev, ip: "Error", location: "Error" })));
 
-    // Fetch Battery Info
     if ("getBattery" in navigator) {
       (navigator as any).getBattery().then((battery: any) => {
         const updateBattery = () => {
@@ -109,7 +105,6 @@ export default function Home() {
 
   return (
     <main style={{ maxWidth: 860, margin: "0 auto", padding: "40px 24px", position: "relative" }}>
-      {/* ... Hero section ... */}
       <div style={{ 
         position: "relative", 
         marginBottom: 48, 
@@ -120,7 +115,6 @@ export default function Home() {
         boxShadow: "var(--shadow-lg)"
       }}>
         <div style={{ position: "relative", zIndex: 1, padding: "52px 40px" }}>
-          {/* Status badge */}
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 24 }}>
              <span className="pulse" style={{ width: 10, height: 10, borderRadius: "50%", background: "var(--text)", display: "block", border: "var(--border)" }} />
              <span style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", letterSpacing: "0.06em", textTransform: "uppercase" }}>System Online — v2.0</span>
@@ -139,7 +133,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── Stats ────────────────────────────────────────────────────────── */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16, marginBottom: 16 }}>
         {[
           { label: "Total Endpoints", value: totalEndpoints, icon: "◈" },
@@ -163,7 +156,6 @@ export default function Home() {
         ))}
       </div>
 
-      {/* ── Usage Chart (Fitur 1) ────────────────────────────────────────── */}
       <div className="card" style={{ padding: "32px 28px", marginBottom: 16, background: "var(--surface)" }}>
         <h3 className="section-title" style={{ fontSize: 14, fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text)", marginBottom: 32, display: "flex", alignItems: "center", gap: 10 }}>
           <span style={{ fontSize: 18 }}>📈</span> API Usage (7 Days)
@@ -193,7 +185,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── Uptime Heartbeat (Fitur 5) ───────────────────────────────────── */}
       <div className="card" style={{ padding: "18px 24px", marginBottom: 16, background: "var(--surface)" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
           <span style={{ fontSize: 11, fontWeight: 800, textTransform: "uppercase", color: "var(--text-muted)" }}>Service Reliability</span>
@@ -211,7 +202,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── Live Logs (Fitur 4) ──────────────────────────────────────────── */}
       <div className="card" style={{ padding: "24px", marginBottom: 16, background: "var(--code-bg)", color: "#fff", border: "var(--border)" }}>
          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
             <div className="pulse" style={{ width: 8, height: 8, borderRadius: "50%", background: "#4ade80" }} />
@@ -229,7 +219,6 @@ export default function Home() {
          </div>
       </div>
 
-      {/* ── System Health ────────────────────────────────────────────────── */}
       <div className="card" style={{ padding: "32px 28px", marginBottom: 48, background: "var(--surface)" }}>
         <h3 className="section-title" style={{ fontSize: 14, fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text)", marginBottom: 24, display: "flex", alignItems: "center", gap: 10 }}>
           <span style={{ width: 10, height: 10, borderRadius: "50%", background: loading ? "var(--text-faint)" : "var(--text)", border: "var(--border)", display: "block" }} />
@@ -237,7 +226,6 @@ export default function Home() {
         </h3>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 32 }}>
-          {/* Memory Usage */}
           <div>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
               <span style={{ fontSize: 11, fontWeight: 800, textTransform: "uppercase", color: "var(--text-muted)" }}>Memory Usage</span>
@@ -256,7 +244,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* System Info */}
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
              <p style={{ fontSize: 10, fontWeight: 900, color: "var(--text-faint)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 4 }}>Server</p>
              {[
@@ -271,7 +258,6 @@ export default function Home() {
              ))}
           </div>
 
-          {/* User Session Info */}
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
              <p style={{ fontSize: 10, fontWeight: 900, color: "var(--text-faint)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 4 }}>Your Session</p>
              {[
@@ -288,7 +274,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── Getting Started ──────────────────────────────────────────────── */}
       <div className="card" style={{ padding: "32px 28px", marginBottom: 48 }}>
         <h3 className="section-title" style={{ fontSize: 14, fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text)", marginBottom: 24, display: "flex", alignItems: "center", gap: 10 }}>
           <span style={{ background: "var(--text)", color: "var(--surface)", padding: "2px 8px", borderRadius: 4 }}>$</span> Getting Started
@@ -323,7 +308,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── Footer ───────────────────────────────────────────────────────── */}
       <div style={{ borderTop: "1px solid var(--divider)", paddingTop: 20 }}>
         <p style={{ fontSize: 11, color: "var(--text-faint)", letterSpacing: "0.04em" }}>
           © 2026 Lune Api. All Rights Reserved.

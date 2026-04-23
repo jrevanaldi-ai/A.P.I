@@ -13,7 +13,6 @@ export type EndpointConfig = {
 export const getApiPath = (path: string) => `/api${path}`;
 
 export const endpoints: EndpointConfig[] = [
-  // ── Downloader ──────────────────────────────────────────────────────────
   {
     id: "tiktok",
     name: "TikTok Downloader",
@@ -57,7 +56,6 @@ export const endpoints: EndpointConfig[] = [
     example: "https://open.spotify.com/track/4C3TNDpxyXA2FxpEvp1pqt",
     param: "url",
   },
-  // ── Search ───────────────────────────────────────────────────────────────
   {
     id: "lyrics",
     name: "Lyrics Search",
@@ -81,7 +79,6 @@ export const endpoints: EndpointConfig[] = [
       { name: "url", description: "Direct URL to GSM Arena device page for detailed specs", example: "https://m.gsmarena.com/apple_iphone_16-13317.php", required: false },
     ],
   },
-  // ── System ───────────────────────────────────────────────────────────────
   {
     id: "api-info",
     name: "API Status",

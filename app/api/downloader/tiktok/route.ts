@@ -93,7 +93,6 @@ export async function GET(req: NextRequest) {
         });
 
     } catch (err) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return NextResponse.json({ success: false, message: (err as any).message }, { status: 500 });
     }
 }

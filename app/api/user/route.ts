@@ -14,12 +14,9 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    // Get client IP from headers
     const forwarded = req.headers.get("x-forwarded-for");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const ipFromHeader = forwarded ? forwarded.split(/, /)[0] : (req as any).ip || "Unknown";
 
-    // Fetch location info from server side (no CORS issue)
     const res = await axios.get(`https://ipapi.co/${ipFromHeader}/json/`).catch(() => null);
     const data = res?.data || {};
 

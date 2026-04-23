@@ -135,7 +135,6 @@ function EndpointCard({ ep }: { ep: EndpointConfig }) {
   const handleExecute = async () => {
     const mainVal = paramValues[ep.param] ?? "";
     
-    // Validation with SweetAlert
     if (ep.param && !mainVal.trim()) {
       Swal.fire({
         title: "Missing Parameter",

@@ -28,7 +28,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!mounted) return;
     const root = document.documentElement;
-    // Set both data-theme (CodeSpace style) and .dark class (Tailwind compat)
     root.setAttribute("data-theme", theme);
     if (theme === "dark") {
       root.classList.add("dark");
@@ -39,7 +38,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, [theme, mounted]);
 
   const toggleTheme = () => {
-    // Add transition class for smooth swap
     document.documentElement.classList.add("theme-transitioning");
     setTimeout(() => document.documentElement.classList.remove("theme-transitioning"), 400);
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));

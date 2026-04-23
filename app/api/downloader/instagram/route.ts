@@ -60,7 +60,6 @@ export async function GET(req: NextRequest) {
         const ogImage = $('meta[property="og:image"]').attr('content');
         const embedThumb = $('.EmbeddedMediaImage').attr('src');
         metadata.thumbnail = ogImage || embedThumb || "";
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_) {}
 
     const body = new URLSearchParams();
@@ -120,7 +119,6 @@ export async function GET(req: NextRequest) {
               type = "video";
           }
         }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (_) {}
 
       if (type === "image") {
@@ -143,7 +141,6 @@ export async function GET(req: NextRequest) {
     });
     
   } catch (err) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return NextResponse.json({ success: false, message: (err as any).message }, { status: 500 });
   }
 }

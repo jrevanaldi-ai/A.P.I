@@ -5,7 +5,6 @@ import { isRateLimited } from "@/lib/security";
 
 export const dynamic = "force-dynamic";
 
-// Strip kata-kata umum yang bukan bagian dari judul lagu
 function cleanQuery(raw: string): string {
   return raw
     .replace(/^(lirik|lyrics|lagu|song|download|unduh|cari|search|teks|text)\s+/gi, "")
@@ -104,7 +103,6 @@ export async function GET(req: NextRequest) {
       response_time: `${elapsed}ms`,
     });
   } catch (error) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const err = error as any;
     const elapsed = Date.now() - start;
     const isNotFound =

@@ -14,7 +14,6 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    // Generate simulated daily stats for 7 days
     const dailyStats = Array.from({ length: 7 }, (_, i) => {
       const date = new Date();
       date.setDate(date.getDate() - (6 - i));
@@ -24,7 +23,6 @@ export async function GET(req: NextRequest) {
       };
     });
 
-    // Generate simulated logs
     const endpoints = ["/downloader/tiktok", "/downloader/youtube", "/downloader/spotify", "/search/lyrics", "/downloader/instagram"];
     const recentLogs = Array.from({ length: 5 }, () => ({
       method: "GET",
@@ -34,9 +32,8 @@ export async function GET(req: NextRequest) {
       timestamp: new Date().toLocaleTimeString(),
     }));
 
-    // Generate Uptime Heartbeat (30 bars)
     const uptimeHeartbeat = Array.from({ length: 30 }, () => ({
-      status: Math.random() > 0.05 ? "up" : "down", // 5% chance of being "down" in simulation
+      status: Math.random() > 0.05 ? "up" : "down",
     }));
 
     return NextResponse.json({

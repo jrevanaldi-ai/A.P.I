@@ -9,7 +9,6 @@ export async function GET() {
     const cpus = os.cpus();
     const loadAvg = os.loadavg();
 
-    // Generate mock history data
     const requestHistory = Array.from({ length: 15 }, (_, i) => ({
       time: new Date(Date.now() - (15 - i) * 2000).toLocaleTimeString("en-US", {
         hour: "2-digit",

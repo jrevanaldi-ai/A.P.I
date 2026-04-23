@@ -24,7 +24,6 @@ const ytAudio = {
         
         const json = JSON.parse(match[0].replace(/\\"/g, '"').replace(/\\\\/g, "\\"));
         
-        // Menggunakan bitrate tertinggi 320kbps
         const body = JSON.stringify({
             "id": json.videoId,
             "audioBitrate": "320",
@@ -33,7 +32,6 @@ const ytAudio = {
             "secretToken": json.encryptedVideoId
         });
         
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let json2: any = {};
         do {
             const response2 = await fetch(`${proxy}https://api.ytmp3.tube/api/download/mp3`, {
@@ -82,7 +80,6 @@ async function ytVideo(url: string, resolusi: string) {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
     };
 
-    // Jika resolusi tidak ditentukan, paksa ambil 4k (tertinggi)
     const apiFormat = resolusi === 'max' ? '4k' : resolusi;
     const oke = await axios.get(`${proxy}${baseUrl}/download-video?id=${id}&format=${apiFormat}`, { headers });
     
@@ -121,7 +118,6 @@ export async function GET(req: NextRequest) {
 
     try {
         const url = req.nextUrl.searchParams.get("url");
-        // Default resolusi diubah ke 'max' untuk kualitas tertinggi
         const resolusi = req.nextUrl.searchParams.get("resolusi") || "max";
         
         if (!url) throw new Error("URL is missing");
@@ -183,7 +179,6 @@ export async function GET(req: NextRequest) {
         });
 
     } catch (err) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return NextResponse.json({ success: false, message: (err as any).message }, { status: 500 });
     }
 }

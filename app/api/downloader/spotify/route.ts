@@ -13,7 +13,6 @@ const spotifyEmbed = {
         return `${m}:${s}`;
     },
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getBiggestImage(images: any[]) {
         if (!images || images.length === 0) return "";
         return images.reduce((best, img) => {
@@ -51,7 +50,6 @@ const spotifyEmbed = {
             if (type === 'track') {
                 return {
                     title: entity.name,
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     artist: entity.artists ? entity.artists.map((a: any) => a.name).join(', ') : entity.subtitle || "-",
                     release_date: entity.releaseDate ? entity.releaseDate.isoString.split('T')[0] : "-",
                     duration: this.fmtMs(entity.duration),
@@ -182,7 +180,6 @@ export async function GET(req: NextRequest) {
         });
         
     } catch (error) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return NextResponse.json({ status: false, error: (error as any).message }, { status: 500 });
     }
 }
